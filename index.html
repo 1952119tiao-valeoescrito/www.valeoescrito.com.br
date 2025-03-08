@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loteria Blockchain</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.4.umd.min.js" type="application/javascript"></script>
+    <style>
+        body { font-family: sans-serif; }
+        .container { width: 600px; margin: 20px auto; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"] { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; }
+        button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; cursor: pointer; }
+        button:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Loteria Descentralizada</h1>
+
+    <button id="connectWallet">Conectar MetaMask</button>
+    <p id="walletStatus">Carteira não conectada</p>
+
+    <h2>Apostar</h2>
+    <label for="prognostico1">Prognóstico 1:</label>
+    <input type="text" id="prognostico1" name="prognostico1">
+
+    <label for="prognostico2">Prognóstico 2:</label>
+    <input type="text" id="prognostico2" name="prognostico2">
+
+    <label for="prognostico3">Prognóstico 3:</label>
+    <input type="text" id="prognostico3" name="prognostico3">
+
+    <label for="prognostico4">Prognóstico 4:</label>
+    <input type="text" id="prognostico4" name="prognostico4">
+
+    <label for="prognostico5">Prognóstico 5:</label>
+    <input type="text" id="prognostico5" name="prognostico5">
+
+    <button id="apostarBtn">Apostar</button>
+
+    <p id="message"></p>
+</div>
+
+<script>
+    // Endereço do contrato e ABI (você precisará substituir com os seus)
+    const contractAddress = "SEU_ENDEREÇO_DO_CONTRATO";
+    const contractABI = [
+        // Cole o ABI do seu contrato aqui
+        // Exemplo (SUBSTITUA COM O SEU ABI REAL):
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256[5]",
+                    "name": "_prognosticos",
+                    "type": "uint256[5]"
+                }
+            ],
+            "name": "apostar",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+       // Outras funções do ABI
+    ];
+
+
+    async function connectWallet() {
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const signer = provider.getSigner();
+                const address = await signer.getAddress();
+
+                document.getElementById("walletStatus").innerText = `Carteira conectada: ${address}`;
+                return { provider, signer }; // Retorna provider e signer
+            } catch (error) {
+                document.getElementById("message").innerText = `Erro ao conectar a carteira: ${error.message}`;
+            }
+        } else {
+            document.getElementById("message").innerText = "MetaMask não detectado. Instale o MetaMask.";
+        }
+        return null;
+    }
+
+
+
+    async function apostar() {
+        const prognostico1 = document.getElementById("prognostico1").value;
+        const prognostico2 = document.getElementById("prognostico2").value;
+        const prognostico3 = document.getElementById("prognostico3").value;
+        const prognostico4 = document.getElementById("prognostico4").value;
+        const prognostico5 = document.getElementById("prognostico5").value;
+
+        // Validar se os campos estão preenchidos e são números
+        if (!prognostico1 || !prognostico2 || !prognostico3 || !prognostico4 || !prognostico5) {
+            document.getElementById("message").innerText = "Preencha todos os prognósticos.";
+            return;
+        }
+
+        const prognosticos = [
+            parseInt(prognostico1),
+            parseInt(prognostico2),
+            parseInt(prognostico3),
+            parseInt(prognostico4),
+            parseInt(prognostico5)
+        ];
+
+        // Verificar se os prognósticos são números válidos
+        if (prognosticos.some(isNaN)) {
+            document.getElementById("message").innerText = "Os prognósticos devem ser números válidos.";
+            return;
+        }
+
+
+        //Conectar a carteira
+        const walletConnection = await connectWallet();
+        if (!walletConnection) {
+            document.getElementById("message").innerText = "Conecte sua carteira MetaMask.";
+            return;
+        }
+
+        const { signer } = walletConnection;
+        const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+        try {
+
+            const tx = await contract.apostar(prognosticos, {
+                value: ethers.utils.parseEther("0.00033") // Substitua pelo valor correto da aposta
+            });
+
+            document.getElementById("message").innerText = "Apostando... Aguarde a confirmação da transação.";
+            await tx.wait(); // Espera a transação ser minerada
+
+            document.getElementById("message").innerText = "Aposta realizada com sucesso!";
+
+
+        } catch (error) {
+            console.error("Erro ao apostar:", error);
+            document.getElementById("message").innerText = `Erro ao apostar: ${error.message}`;
+        }
+    }
+
+    document.getElementById("connectWallet").addEventListener("click", connectWallet);
+    document.getElementById("apostarBtn").addEventListener("click", apostar);
+
+</script>
+
+</body>
+</html>
