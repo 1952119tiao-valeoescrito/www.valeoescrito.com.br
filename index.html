@@ -333,7 +333,34 @@
             <option value="ZW">Zimbábue</option>
         </select>
 
-     <!-- Endereço do Contrato (Oculto) -->
+     <!-- E-mail e Telefone -->
+        <label for="email_indicador">Seu e-mail:</label>
+        <input id="email_indicador" name="email_indicador" type="email" required>
+
+        <label for="telefone">Telefone:</label>
+        <input id="telefone" name="telefone" type="tel" required>
+
+         <!-- Prognósticos -->
+        <label>Prognósticos:</label>
+        <div style="display: flex; gap: 5px;">
+            <label for="pri_premio">1º Prêmio:</label>
+            <input id="pri_premio" name="pri_premio" pattern="\d{1,2}x\d{1,2}"
+                title="Formato: nxn (ex: 1x1)" required>
+            <label for="seg_premio">2º Prêmio:</label>
+            <input id="seg_premio" name="seg_premio" pattern="\d{1,2}x\d{1,2}"
+                title="Formato: nxn (ex: 1x1)" required>
+            <label for="ter_premio">3º Prêmio:</label>
+            <input id="ter_premio" name="ter_premio" pattern="\d{1,2}x\d{1,2}"
+                title="Formato: nxn (ex: 1x1)" required>
+            <label for="qua_premio">4º Prêmio:</label>
+            <input id="qua_premio" name="qua_premio" pattern="\d{1,2}x\d{1,2}"
+                title="Formato: nxn (ex: 1x1)" required>
+            <label for="qui_premio">5º Prêmio:</label>
+            <input id="qui_premio" name="qui_premio" pattern="\d{1,2}x\d{1,2}"
+                title="Formato: nxn (ex: 1x1)" required>
+        </div>
+
+        <!-- Endereço do Contrato (Oculto) -->
         <input type="hidden" id="enderecoContrato" name="enderecoContrato"
             value="0x8fa024467a4ab1286e78da4a876d18abaea667a38f1e2679069ce6b1ee8663d7">
 
