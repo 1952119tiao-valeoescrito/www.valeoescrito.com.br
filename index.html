@@ -1,53 +1,183 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Loteria Blockchain</title>
+    <title>Loteria Blockchain - Apostar</title>
     <script src="https://cdn.ethers.io/lib/ethers-5.4.umd.min.js" type="application/javascript"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
     <style>
-        body { font-family: sans-serif; }
-        .container { width: 600px; margin: 20px auto; }
-        label { display: block; margin-bottom: 5px; }
-        input[type="text"] { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; }
-        button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; cursor: pointer; }
-        button:hover { opacity: 0.8; }
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 600px;
+            margin: 20px auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        #qrcode {
+            margin-top: 20px;
+        }
     </style>
 </head>
+
 <body>
+    <div class="container">
+        <h1>Apostar na Loteria Blockchain</h1>
 
-<div class="container">
-    <h1>Loteria Descentralizada</h1>
+        <form id="apostaForm"
+            style="font-size: 12px; font-family: Arial, sans-serif; white-space: normal; word-spacing: 0px; text-transform: none; font-weight: 400; color: rgb(0,0,0); font-style: normal; text-align: center; orphans: 2; widows: 2; letter-spacing: normal; background-color: rgb(255,255,255); text-indent: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-variant-ligatures: normal; font-variant-caps: normal">
+            <p style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><span style="font-size: small; color: rgb(255,0,0)"><strong
+                            style="font-weight: bolder"><span style="font-size: medium"> </span></strong><span
+                            style="font-size: 11px"><strong style="font-weight: bolder"><span>GANHA COM 5, 4, 3, 2 E
+                                        ATÉ COM 1 PONTO APENAS - SORTEIOS PELA LOTERIA FEDERAL.</span></strong></span></span></p>
 
-    <button id="connectWallet">Conectar MetaMask</button>
-    <p id="walletStatus">Carteira não conectada</p>
+            <table align="center" border="0" cellpadding="1" cellspacing="1"
+                style="height: 239px; width: 437px; border-collapse: collapse">
+                <tbody>
+                    <tr style="font-size: 12px; font-family: Arial, sans-serif">
+                        <td colspan="2" style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td colspan="11" style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><span style="font-size: 12px">Preencha os dados sugeridos no formulário abaixo:</span></td>
+                    </tr>
+                    <tr style="font-size: 12px; font-family: Arial, sans-serif">
+                        <td colspan="2" style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><span style="font-size: 12px">Concurso nº:</span></td>
+                        <td colspan="2" style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><label style="margin-bottom: 10px; display: inline-block"><input id="num" name="num_extracao" size="1"
+                                    style="overflow: visible; border-top: rgb(204,204,204) 1px solid; height: 25px; font-family: inherit; border-right: rgb(204,204,204) 1px solid; width: 93px; border-bottom: rgb(204,204,204) 1px solid; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px"
+                                    type="text" /></label></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: right"><span style="font-size: 12px">Data:</span></td>
+                        <td colspan="8" style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><input id="data" name="data_extracao" size="1"
+                                    style="overflow: visible; border-top: rgb(204,204,204) 1px solid; height: 22px; font-family: inherit; border-right: rgb(204,204,204) 1px solid; width: 157px; border-bottom: rgb(204,204,204) 1px solid; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px"
+                                    type="text" value="2025-02-01" /></td>
+                    </tr>
+                    <tr style="font-size: 12px; font-family: Arial, sans-serif">
+                        <td colspan="2" style="font-size: 12px; font-family: Arial, sans-serif; text-align: right"><span style="font-size: 12px">Token nº:</span></td>
+                        <td colspan="2" style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><input id="num_token" name="num_token" size="1"
+                                    style="overflow: visible; border-top: rgb(204,204,204) 1px solid; height: 24px; font-family: inherit; border-right: rgb(204,204,204) 1px solid; width: 94px; border-bottom: rgb(204,204,204) 1px solid; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px"
+                                    type="text" /></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: right">  <span style="font-size: 12px">País:</span></td>
+                        <td colspan="8" style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><span style="color: rgb(169,169,169)"><span style="color: rgb(255,255,255)"><span style="color: rgb(255,255,255)"><span class="field"><span
+                                            style="font-size: xx-small; font-family: "Arial Black""><select
+                                                id="country" name="country_pais" size="1"
+                                                style="font-size: 12px; border-top: rgb(204,204,204) 1px solid; font-family: Arial, sans-serif; border-right: rgb(204,204,204) 1px solid; width: 162px; border-bottom: rgb(204,204,204) 1px solid; text-transform: none; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px; overflow-wrap: normal">
+                                                <option selected="selected" style="font-size: 12px; font-family: Arial, sans-serif" value="BZ">Select a country/Selecione um país</option>
+                                                <option style="font-size: 12px; font-family: Arial, sans-serif" value="AL">Albania</option>
+                                                <!-- ... (lista completa de países) ... -->
+                                            </select></span></span></span></span></span></td>
+                    </tr>
+                    <tr style="font-size: 12px; font-family: Arial, sans-serif">
+                        <td colspan="2" style="font-size: 12px; font-family: Arial, sans-serif; text-align: right"><span style="font-size: 12px"><label
+                                    style="margin-bottom: 10px; display: inline-block">Seu e-mail:</label></span></td>
+                        <td colspan="10" style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><input id="email" name="email_indicador" size="1"
+                                    style="overflow: visible; border-top: rgb(204,204,204) 1px solid; height: 22px; font-family: inherit; border-right: rgb(204,204,204) 1px solid; width: 310px; border-bottom: rgb(204,204,204) 1px solid; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px"
+                                    type="text" /></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                    </tr>
+                    <tr style="font-size: 12px; font-family: Arial, sans-serif">
+                        <td colspan="2" style="font-size: 12px; font-family: Arial, sans-serif; text-align: right"><span style="font-size: 12px">Seu indicado:</span></td>
+                        <td colspan="10" style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><input id="email" name="email_investidor" size="1"
+                                    style="overflow: visible; border-top: rgb(204,204,204) 1px solid; height: 22px; font-family: inherit; border-right: rgb(204,204,204) 1px solid; width: 309px; border-bottom: rgb(204,204,204) 1px solid; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px"
+                                    type="text" /></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                    </tr>
+                    <tr style="font-size: 12px; font-family: Arial, sans-serif">
+                        <td colspan="2" style="font-size: 12px; font-family: Arial, sans-serif; text-align: right"> <span style="font-size: 12px">Telefone: </span></td>
+                        <td colspan="10" style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><input id="telefone" name="telefone" size="1"
+                                    style="overflow: visible; border-top: rgb(204,204,204) 1px solid; height: 23px; font-family: inherit; border-right: rgb(204,204,204) 1px solid; width: 308px; border-bottom: rgb(204,204,204) 1px solid; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px"
+                                    type="text" /></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                    </tr>
+                    <tr style="font-size: 12px; font-family: Arial, sans-serif">
+                        <td colspan="2" style="font-size: 12px; font-family: Arial, sans-serif; text-align: right"><span style="font-size: 12px"><label
+                                    style="margin-bottom: 10px; display: inline-block">Colocação: </label></span></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><span style="font-size: 9px">1º Prêmio:</span></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><span style="font-size: 9px">2º Prêmio:</span></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><span style="font-size: 9px"> 3º Prêmio:</span></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><span style="font-size: 9px">   4º Prêmio:</span></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><span style="font-size: 9px">5º Prêmio:</span></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><span style="font-size: 9px">:</span></td>
+                    </tr>
+                    <tr style="font-size: 12px; font-family: Arial, sans-serif">
+                        <td colspan="2" style="font-size: 12px; font-family: Arial, sans-serif; text-align: right"><span style="font-size: 12px"><label
+                                    style="margin-bottom: 10px; display: inline-block">Prognósticos:</label></span></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><input id="pri_premio" name="pri_premio" size="1"
+                                    style="overflow: visible; border-top: rgb(204,204,204) 1px solid; height: 21px; font-family: inherit; border-right: rgb(204,204,204) 1px solid; width: 51px; border-bottom: rgb(204,204,204) 1px solid; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px"
+                                    type="text" /></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> <input id="seg_premio" name="seg_premio" size="1"
+                                    style="overflow: visible; border-top: rgb(204,204,204) 1px solid; height: 21px; font-family: inherit; border-right: rgb(204,204,204) 1px solid; width: 51px; border-bottom: rgb(204,204,204) 1px solid; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px"
+                                    type="text" /></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif"><input id="ter_premio" name="ter_premio" size="1"
+                                    style="overflow: visible; border-top: rgb(204,204,204) 1px solid; height: 21px; font-family: inherit; border-right: rgb(204,204,204) 1px solid; width: 51px; border-bottom: rgb(204,204,204) 1px solid; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px"
+                                    type="text" /></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"><input id="qua_premio" name="qua_premio" size="1"
+                                    style="overflow: visible; border-top: rgb(204,204,204) 1px solid; height: 21px; font-family: inherit; border-right: rgb(204,204,204) 1px solid; width: 51px; border-bottom: rgb(204,204,204) 1px solid; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px"
+                                    type="text" /></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif"> <input id="qui_premio" name="qui_premio" size="1"
+                                    style="overflow: visible; border-top: rgb(204,204,204) 1px solid; height: 21px; font-family: inherit; border-right: rgb(204,204,204) 1px solid; width: 51px; border-bottom: rgb(204,204,204) 1px solid; padding-bottom: 10px; padding-top: 10px; padding-left: 10px; border-left: rgb(204,204,204) 1px solid; margin: 0px; padding-right: 10px; border-radius: 5px"
+                                    type="text" /></td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                    </tr>
+                    <tr style="font-size: 12px; font-family: Arial, sans-serif">
+                        <td colspan="2" style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                        <td colspan="10" style="font-size: 12px; font-family: Arial, sans-serif">                      
+                            <span> </span>
+                             <!-- Botão para MetaMask -->
+                            <button type="button" id="apostarMetaMask" style="margin-right: 10px;">Apostar com MetaMask</button>
+                            <!-- Botão para gerar QR Code -->
+                            <button type="button" id="gerarQrCode">Gerar QR Code</button>
+                        </td>
+                        <td style="font-size: 12px; font-family: Arial, sans-serif; text-align: center"> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
 
-    <h2>Apostar</h2>
-    <label for="prognostico1">Prognóstico 1:</label>
-    <input type="text" id="prognostico1" name="prognostico1">
+        <!-- Pagamento com QR Code -->
+        <div id="qrcode"></div>
+        <p id="qrCodeMessage"></p>
 
-    <label for="prognostico2">Prognóstico 2:</label>
-    <input type="text" id="prognostico2" name="prognostico2">
+        <p id="statusMessage"></p>
+    </div>
 
-    <label for="prognostico3">Prognóstico 3:</label>
-    <input type="text" id="prognostico3" name="prognostico3">
-
-    <label for="prognostico4">Prognóstico 4:</label>
-    <input type="text" id="prognostico4" name="prognostico4">
-
-    <label for="prognostico5">Prognóstico 5:</label>
-    <input type="text" id="prognostico5" name="prognostico5">
-
-    <button id="apostarBtn">Apostar</button>
-
-    <p id="message"></p>
-</div>
-
-<script>
-    // Endereço do contrato e ABI (você precisará substituir com os seus)
-    const contractAddress = "SEU_ENDEREÇO_DO_CONTRATO";
-    const contractABI = [
-        // Cole o ABI do seu contrato aqui
-        // Exemplo (SUBSTITUA COM O SEU ABI REAL):
-        {
+    <script>
+        // Endereço do contrato e ABI (você precisará substituir com os seus)
+        const contractAddress = "SEU_ENDEREÇO_DO_CONTRATO";
+        const contractABI = [
+             {
             "inputs": [
                 {
                     "internalType": "uint256[5]",
@@ -61,90 +191,103 @@
             "type": "function"
         },
        // Outras funções do ABI
-    ];
-
-
-    async function connectWallet() {
-        if (typeof window.ethereum !== 'undefined') {
-            try {
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const signer = provider.getSigner();
-                const address = await signer.getAddress();
-
-                document.getElementById("walletStatus").innerText = `Carteira conectada: ${address}`;
-                return { provider, signer }; // Retorna provider e signer
-            } catch (error) {
-                document.getElementById("message").innerText = `Erro ao conectar a carteira: ${error.message}`;
-            }
-        } else {
-            document.getElementById("message").innerText = "MetaMask não detectado. Instale o MetaMask.";
-        }
-        return null;
-    }
-
-
-
-    async function apostar() {
-        const prognostico1 = document.getElementById("prognostico1").value;
-        const prognostico2 = document.getElementById("prognostico2").value;
-        const prognostico3 = document.getElementById("prognostico3").value;
-        const prognostico4 = document.getElementById("prognostico4").value;
-        const prognostico5 = document.getElementById("prognostico5").value;
-
-        // Validar se os campos estão preenchidos e são números
-        if (!prognostico1 || !prognostico2 || !prognostico3 || !prognostico4 || !prognostico5) {
-            document.getElementById("message").innerText = "Preencha todos os prognósticos.";
-            return;
-        }
-
-        const prognosticos = [
-            parseInt(prognostico1),
-            parseInt(prognostico2),
-            parseInt(prognostico3),
-            parseInt(prognostico4),
-            parseInt(prognostico5)
         ];
+        const apostaValueEther = "0.00033"; // Valor da aposta em Ether
 
-        // Verificar se os prognósticos são números válidos
-        if (prognosticos.some(isNaN)) {
-            document.getElementById("message").innerText = "Os prognósticos devem ser números válidos.";
-            return;
+        let signer; // Variável para armazenar o signer do MetaMask
+
+        // Função para conectar ao MetaMask
+        async function connectMetaMask() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    await window.ethereum.request({
+                        method: 'eth_requestAccounts'
+                    });
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    signer = provider.getSigner(); // Define o signer globalmente
+                    const address = await signer.getAddress();
+
+                    document.getElementById("statusMessage").innerText = `Carteira conectada: ${address}`;
+                    return true;
+                } catch (error) {
+                    document.getElementById("statusMessage").innerText = `Erro ao conectar a carteira: ${error.message}`;
+                    return false;
+                }
+            } else {
+                document.getElementById("statusMessage").innerText = "MetaMask não detectado. Instale o MetaMask.";
+                return false;
+            }
+        }
+         // Evento de clique para conectar o MetaMask
+         document.getElementById("apostarMetaMask").addEventListener("click", async () => {
+            if (await connectMetaMask()) {
+               await apostarComMetaMask();
+            }
+         });
+
+        // Função para apostar com MetaMask
+        async function apostarComMetaMask() {
+            const prognosticos = obterPrognosticosDoFormulario();
+            if (!prognosticos) return; // Se a validação falhar, interrompe
+
+            try {
+                const contract = new ethers.Contract(contractAddress, contractABI, signer);
+                const tx = await contract.apostar(prognosticos, {
+                    value: ethers.utils.parseEther(apostaValueEther)
+                });
+
+                document.getElementById("statusMessage").innerText = "Apostando... Aguarde a confirmação da transação.";
+                await tx.wait();
+                document.getElementById("statusMessage").innerText = "Aposta realizada com sucesso!";
+            } catch (error) {
+                console.error("Erro ao apostar:", error);
+                document.getElementById("statusMessage").innerText = `Erro ao apostar: ${error.message}`;
+            }
         }
 
+        // Função para obter os prognósticos do formulário e validar
+        function obterPrognosticosDoFormulario() {
+            const pri_premio = document.getElementById("pri_premio").value;
+            const seg_premio = document.getElementById("seg_premio").value;
+            const ter_premio = document.getElementById("ter_premio").value;
+            const qua_premio = document.getElementById("qua_premio").value;
+            const qui_premio = document.getElementById("qui_premio").value;
 
-        //Conectar a carteira
-        const walletConnection = await connectWallet();
-        if (!walletConnection) {
-            document.getElementById("message").innerText = "Conecte sua carteira MetaMask.";
-            return;
+            const prognosticos = [pri_premio, seg_premio, ter_premio, qua_premio, qui_premio];
+
+            if (prognosticos.some(p => !p)) {
+                document.getElementById("statusMessage").innerText = "Preencha todos os prognósticos.";
+                return null;
+            }
+
+            if (prognosticos.some(isNaN)) {
+                document.getElementById("statusMessage").innerText = "Os prognósticos devem ser números.";
+                return null;
+            }
+            return prognosticos.map(Number); // Converte para números
         }
 
-        const { signer } = walletConnection;
-        const contract = new ethers.Contract(contractAddress, contractABI, signer);
+        // QR Code
+        document.getElementById("gerarQrCode").addEventListener("click", gerarQrCode);
 
-        try {
+        function gerarQrCode() {
+            const qrcodeDiv = document.getElementById("qrcode");
+            qrcodeDiv.innerHTML = ""; // Limpa qualquer QR code existente
 
-            const tx = await contract.apostar(prognosticos, {
-                value: ethers.utils.parseEther("0.00033") // Substitua pelo valor correto da aposta
+            const qrCodeData = `ethereum:${contractAddress}?value=${ethers.utils.parseEther(apostaValueEther).toHexString()}`; //Valor da aposta no QR code.
+
+            const qrcode = new QRCode(qrcodeDiv, {
+                text: qrCodeData,
+                width: 128,
+                height: 128,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
             });
-
-            document.getElementById("message").innerText = "Apostando... Aguarde a confirmação da transação.";
-            await tx.wait(); // Espera a transação ser minerada
-
-            document.getElementById("message").innerText = "Aposta realizada com sucesso!";
-
-
-        } catch (error) {
-            console.error("Erro ao apostar:", error);
-            document.getElementById("message").innerText = `Erro ao apostar: ${error.message}`;
+            document.getElementById("qrCodeMessage").innerText = "Escaneie o QR code para pagar e validar sua aposta!";
         }
-    }
 
-    document.getElementById("connectWallet").addEventListener("click", connectWallet);
-    document.getElementById("apostarBtn").addEventListener("click", apostar);
-
-</script>
-
+    </script>
 </body>
+
 </html>
