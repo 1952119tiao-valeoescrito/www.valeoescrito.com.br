@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 
 // Configurações do contrato
-const CONTRACT_ADDRESS = "0x..."; // Substitua pelo endereço do contrato
+const CONTRACT_ADDRESS = "0x8fa024467a4ab1286e78da4a876d18abaea667a38f1e2679069ce6b1ee8663d7"; // Substitua pelo endereço do contrato
 const ABI = [
   // Cole aqui o ABI do contrato (gerado durante a compilação)
 ];
