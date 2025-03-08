@@ -333,7 +333,7 @@
             <option value="ZW">Zimbábue</option>
         </select>
 
-        <!-- E-mail e Telefone -->
+       <!-- E-mail e Telefone -->
         <label for="email_indicador">Seu e-mail:</label>
         <input id="email_indicador" name="email_indicador" type="email" required>
 
@@ -355,20 +355,12 @@
                 title="Formato: nxn (ex: 1x1)" required>
         </div>
 
-        <!-- Endereço do Contrato -->
-        <label for="enderecoContrato">Endereço do Contrato:</label>
-        <input type="text" id="enderecoContrato" name="enderecoContrato"
-            value="0x8fa024467a4ab1286e78da4a876d18abaea667a38f1e2679069ce6b1ee8663d7" required>
+        <!-- Endereço do Contrato (Oculto) -->
+        <input type="hidden" id="enderecoContrato" name="enderecoContrato"
+            value="0x8fa024467a4ab1286e78da4a876d18abaea667a38f1e2679069ce6b1ee8663d7">
 
-        <!-- Métodos de Pagamento -->
-        <label>Método de Pagamento:</label>
-        <select id="paymentMethod" name="paymentMethod" required>
-            <option value="">Selecione o método de pagamento</option>
-            <option value="metamask">MetaMask</option>
-        </select>
-
-        <!-- Botões de Ação -->
-        <button type="submit">Submeter</button>
+        <!-- Botão MetaMask -->
+        <button type="button" class="metamask" id="pagarMetaMask">Pagar com MetaMask</button>
         <button type="reset" class="reset">Redefinir</button>
     </form>
 
@@ -430,19 +422,10 @@
             }
         }
 
-        // Validação do formulário e lógica de pagamento
-        const form = document.getElementById('apostaForm');
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const paymentMethod = document.getElementById('paymentMethod').value;
-
-            if (paymentMethod === 'metamask') {
-                if (await initWeb3()) { // Inicializa o web3 e verifica o resultado
-                    payWithMetaMask();
-                }
-            } else {
-                alert('Selecione um método de pagamento.');
+        // Evento de clique para o botão MetaMask
+        document.getElementById('pagarMetaMask').addEventListener('click', async () => {
+            if (await initWeb3()) {
+                payWithMetaMask();
             }
         });
 
