@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Apostas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #000;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .formulario {
+      display: inline-block;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: left;
+    }
+    .formulario table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .formulario table td {
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+    .formulario input, .formulario select {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+    .formulario button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .formulario button.reset {
+      background-color: #dc3545;
+    }
+    .formulario button.qrcode {
+      background-color: #007bff;
+    }
+    .formulario button:hover {
+      opacity: 0.9;
+    }
+    .formulario h2 {
+      text-align: center;
+      color: #333;
+    }
+    /* Estilo do modal do QR Code */
+    #qrCodeModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    #qrCodeModal img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <form class="formulario" id="apostaForm">
+    <h2>Formulário de Apostas</h2>
+    <p style="text-align: center; color: red; font-weight: bold;">
+      GANHA COM 5, 4, 3, 2 E ATÉ COM 1 PONTO APENAS - SORTEIOS PELA LOTERIA FEDERAL.
+    </p>
+
+    <table align="center" border="0" cellpadding="1" cellspacing="1">
+      <tbody>
+        <!-- Concurso e Data -->
+        <tr>
+          <td colspan="2" style="text-align: right;">Concurso nº:</td>
+          <td colspan="2">
+            <input id="num_extracao" name="num_extracao" size="1" required>
+          </td>
+          <td style="text-align: right;">Data:</td>
+          <td colspan="8">
+            <input id="data_extracao" name="data_extracao" type="date" required>
+          </td>
+        </tr>
+
+        <!-- Token e País -->
+        <tr>
+          <td colspan="2" style="text-align: right;">Token nº:</td>
+          <td colspan="2">
+            <input id="num_token" name="num_token" size="1" required>
+          </td>
+          <td style="text-align: right;">País:</td>
+          <td colspan="8">
+            <select id="country_pais" name="country_pais" required>
+              <option value="">Selecione um país</option>
+              <option value="BR">Brasil</option>
+              <option value="US">Estados Unidos</option>
+              <!-- Adicione mais países aqui -->
+            </select>
+          </td>
+        </tr>
+
+        <!-- E-mail e Telefone -->
+        <tr>
+          <td colspan="2" style="text-align: right;">Seu e-mail:</td>
+          <td colspan="10">
+            <input id="email_indicador" name="email_indicador" type="email" required>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: right;">Telefone:</td>
+          <td colspan="10">
+            <input id="telefone" name="telefone" type="text" required>
+          </td>
+        </tr>
+
+        <!-- Prognósticos -->
+        <tr>
+          <td colspan="2" style="text-align: right;">Prognósticos:</td>
+          <td>
+            <input id="pri_premio" name="pri_premio" pattern="\d{1,2}x\d{1,2}" title="Formato: nxn (ex: 1x1)" required>
+          </td>
+          <td>
+            <input id="seg_premio" name="seg_premio" pattern="\d{1,2}x\d{1,2}" title="Formato: nxn (ex: 1x1)" required>
+          </td>
+          <td>
+            <input id="ter_premio" name="ter_premio" pattern="\d{1,2}x\d{1,2}" title="Formato: nxn (ex: 1x1)" required>
+          </td>
+          <td>
+            <input id="qua_premio" name="qua_premio" pattern="\d{1,2}x\d{1,2}" title="Formato: nxn (ex: 1x1)" required>
+          </td>
+          <td>
+            <input id="qui_premio" name="qui_premio" pattern="\d{1,2}x\d{1,2}" title="Formato: nxn (ex: 1x1)" required>
+          </td>
+        </tr>
+
+        <!-- Botões de Pagamento -->
+        <tr>
+          <td colspan="12" style="text-align: center;">
+            <button type="button" id="pagarMetaMask">Pagar com MetaMask</button>
+            <button type="button" id="pagarQRCode" class="qrcode">Pagar com QR Code</button>
+          </td>
+        </tr>
+
+        <!-- Botões de Ação -->
+        <tr>
+          <td colspan="12" style="text-align: center;">
+            <button type="submit">Submeter</button>
+            <button type="reset" class="reset">Redefinir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
+  <!-- Modal do QR Code -->
+  <div id="qrCodeModal">
+    <h3>Escaneie o QR Code para pagar</h3>
+    <img id="qrCodeImage" src="" alt="QR Code">
+    <button onclick="fecharModal()">Fechar</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script>
+    // Integração com MetaMask
+    const pagarMetaMask = document.getElementById('pagarMetaMask');
+    pagarMetaMask.addEventListener('click', async () => {
+      if (typeof window.ethereum !== 'undefined') {
+        const web3 = new Web3(window.ethereum);
+        try {
+          await window.ethereum.enable();
+          const accounts = await web3.eth.getAccounts();
+          const account = accounts[0];
+
+          // Valor da aposta (0.00033 ETH em Wei)
+          const valorAposta = web3.utils.toWei('0.00033', 'ether');
+
+          // Enviar transação
+          await web3.eth.sendTransaction({
+            from: account,
+            to: '0x...', // Endereço do contrato
+            value: valorAposta,
+          });
+
+          alert('Pagamento realizado com sucesso!');
+        } catch (error) {
+          console.error('Erro ao realizar pagamento:', error);
+        }
+      } else {
+        alert('Por favor, instale a MetaMask.');
+      }
+    });
+
+    // Integração com QR Code
+    const pagarQRCode = document.getElementById('pagarQRCode');
+    const qrCodeModal = document.getElementById('qrCodeModal');
+    const qrCodeImage = document.getElementById('qrCodeImage');
+
+    pagarQRCode.addEventListener('click', () => {
+      // Gerar QR Code (exemplo com um link de pagamento)
+      const enderecoContrato = '0x8fa024467a4ab1286e78da4a876d18abaea667a38f1e2679069ce6b1ee8663d7'; // Endereço do contrato
+      const valorAposta = '0.00033'; // Valor da aposta em ETH
+      const qrCodeData = `ethereum:${enderecoContrato}?value=${web3.utils.toWei(valorAposta, 'ether')}`;
+      qrCodeImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrCodeData)}`;
+
+      // Exibir modal
+      qrCodeModal.style.display = 'block';
+    });
+
+    // Fechar modal
+    function fecharModal() {
+      qrCodeModal.style.display = 'none';
+    }
+
+    // Validação do formulário
+    const form = document.getElementById('apostaForm');
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      alert('Aposta submetida com sucesso!');
+    });
+  </script>
+</body>
+</html>
