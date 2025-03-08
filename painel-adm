@@ -1,0 +1,172 @@
+import React, { useState, useEffect } from "react";
+import { ethers } from "ethers";
+
+// Configurações do contrato
+const CONTRACT_ADDRESS = "0x..."; // Substitua pelo endereço do contrato
+const ABI = [
+  // Cole aqui o ABI do contrato (gerado durante a compilação)
+];
+
+// Componente principal
+const PainelAdministrativo = () => {
+  const [prognosticos, setPrognosticos] = useState([]);
+  const [apostas, setApostas] = useState([]);
+  const [resultados, setResultados] = useState([]);
+  const [contrato, setContrato] = useState(null);
+  const [signer, setSigner] = useState(null);
+
+  // Conectar à carteira e ao contrato
+  useEffect(() => {
+    const conectarCarteira = async () => {
+      if (window.ethereum) {
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contrato = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
+        setSigner(signer);
+        setContrato(contrato);
+        console.log("Carteira conectada:", await signer.getAddress());
+      } else {
+        alert("Instale o MetaMask para continuar!");
+      }
+    };
+
+    conectarCarteira();
+  }, []);
+
+  // Adicionar prognóstico
+  const adicionarPrognostico = async (descricao) => {
+    if (contrato && signer) {
+      await contrato.adicionarPrognostico(descricao);
+      alert("Prognóstico adicionado com sucesso!");
+    }
+  };
+
+  // Solicitar sorteio
+  const solicitarSorteio = async () => {
+    if (contrato && signer) {
+      await contrato.solicitarSorteio();
+      alert("Sorteio solicitado com sucesso!");
+    }
+  };
+
+  // Distribuir prêmios
+  const distribuirPremios = async () => {
+    if (contrato && signer) {
+      await contrato.distribuirPremios();
+      alert("Prêmios distribuídos com sucesso!");
+    }
+  };
+
+  // Reabrir apostas
+  const reabrirApostas = async () => {
+    if (contrato && signer) {
+      await contrato.reabrirApostas();
+      alert("Apostas reabertas com sucesso!");
+    }
+  };
+
+  // Obter prognósticos
+  const obterPrognosticos = async () => {
+    if (contrato) {
+      const prognostics = [];
+      for (let i = 1; i <= 10; i++) { // Ajuste o limite conforme necessário
+        try {
+          const descricao = await contrato.obterPrognostico(i);
+          prognostics.push({ id: i, descricao });
+        } catch (error) {
+          break;
+        }
+      }
+      setPrognosticos(prognostics);
+    }
+  };
+
+  // Obter apostas
+  const obterApostas = async () => {
+    if (contrato) {
+      const apostas = await contrato.getApostas(); // Implemente essa função no contrato
+      setApostas(apostas);
+    }
+  };
+
+  // Obter resultados
+  const obterResultados = async () => {
+    if (contrato) {
+      const resultados = await contrato.getResultados(); // Implemente essa função no contrato
+      setResultados(resultados);
+    }
+  };
+
+  // Carregar dados ao iniciar
+  useEffect(() => {
+    if (contrato) {
+      obterPrognosticos();
+      obterApostas();
+      obterResultados();
+    }
+  }, [contrato]);
+
+  return (
+    <div>
+      <h1>Painel Administrativo da Loteria</h1>
+
+      {/* Adicionar Prognóstico */}
+      <div>
+        <h2>Adicionar Prognóstico</h2>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          const descricao = e.target.descricao.value;
+          adicionarPrognostico(descricao);
+        }}>
+          <input type="text" name="descricao" placeholder="Descrição do prognóstico" required />
+          <button type="submit">Adicionar</button>
+        </form>
+      </div>
+
+      {/* Solicitar Sorteio */}
+      <div>
+        <h2>Solicitar Sorteio</h2>
+        <button onClick={solicitarSorteio}>Solicitar Sorteio</button>
+      </div>
+
+      {/* Distribuir Prêmios */}
+      <div>
+        <h2>Distribuir Prêmios</h2>
+        <button onClick={distribuirPremios}>Distribuir Prêmios</button>
+      </div>
+
+      {/* Reabrir Apostas */}
+      <div>
+        <h2>Reabrir Apostas</h2>
+        <button onClick={reabrirApostas}>Reabrir Apostas</button>
+      </div>
+
+      {/* Visualizar Dados */}
+      <div>
+        <h2>Prognósticos Cadastrados</h2>
+        <ul>
+          {prognosticos.map((prog) => (
+            <li key={prog.id}>ID: {prog.id} - {prog.descricao}</li>
+          ))}
+        </ul>
+
+        <h2>Apostas Realizadas</h2>
+        <ul>
+          {apostas.map((aposta, index) => (
+            <li key={index}>Apostador: {aposta.apostador} - Prognósticos: {aposta.prognosticos.join(", ")}</li>
+          ))}
+        </ul>
+
+        <h2>Resultados do Sorteio</h2>
+        <ul>
+          {resultados.map((resultado, index) => (
+            <li key={index}>Resultado {index + 1}: {resultado}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default PainelAdministrativo;
