@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Apostas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #000;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .formulario {
+      display: inline-block;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: left;
+      max-width: 500px;
+      width: 100%;
+    }
+    .formulario input, .formulario select, .formulario button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 12px;
+      box-sizing: border-box; /* Garante que padding e border não aumentem a largura */
+    }
+    .formulario button {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    .formulario button.reset {
+      background-color: #dc3545;
+    }
+    .formulario button.qrcode {
+      background-color: #007bff;
+    }
+
+    .formulario button.pix {
+      background-color: #f9c851; /* Cor de destaque para o botão PIX */
+      color: #000; /* Texto preto para melhor contraste */
+    }
+
+    .formulario button:hover {
+      opacity: 0.9;
+    }
+    #qrCodeModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    #qrCodeModal img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+<form class="formulario" id="apostaForm">
+<h2>Formul&aacute;rio de Apostas</h2>
+
+<p style="font-weight: bold; color: red; text-align: center">GANHA COM 5, 4, 3, 2 E AT&Eacute; COM 1 PONTO APENAS - SORTEIOS PELA LOTERIA FEDERAL.</p>
+<!-- Concurso e Data --><label for="num_extracao">Concurso n&ordm;:</label> <input id="num_extracao" name="num_extracao" required="" type="text" /> <label for="data_extracao">Data:</label> <input id="data_extracao" name="data_extracao" required="" type="date" /> <!-- Token e País --><label for="num_token">Token n&ordm;:</label> <input id="num_token" name="num_token" required="" type="text" /> <label for="country_pais">Pa&iacute;s:</label> <select id="country_pais" name="country_pais" required=""><option selected="selected" value="">Selecione um pa&iacute;s</option><option value="AF">Afeganist&atilde;o</option><option value="AL">Alb&acirc;nia</option><option value="DZ">Arg&eacute;lia</option><option value="AD">Andorra</option><option value="AO">Angola</option><option value="AI">Anguilla</option><option value="AG">Ant&iacute;gua e Barbuda</option><option value="AR">Argentina</option><option value="AM">Arm&ecirc;nia</option><option value="AW">Aruba</option><option value="AU">Austr&aacute;lia</option><option value="AT">&Aacute;ustria</option><option value="AZ">Azerbaij&atilde;o</option><option value="BS">Bahamas</option><option value="BH">Bahrein</option><option value="BD">Bangladesh</option><option value="BB">Barbados</option><option value="BY">Belarus</option><option value="BE">B&eacute;lgica</option><option value="BZ">Belize</option><option value="BJ">Benin</option><option value="BM">Bermudas</option><option value="BT">But&atilde;o</option><option value="BO">Bol&iacute;via</option><option value="BA">B&oacute;snia e Herzegovina</option><option value="BW">Botsuana</option><option value="BR">Brasil</option><option value="VG">Ilhas Virgens Brit&acirc;nicas</option><option value="BN">Brunei</option><option value="BG">Bulg&aacute;ria</option><option value="BF">Burkina Faso</option><option value="BI">Burundi</option><option value="KH">Camboja</option><option value="CM">Camar&otilde;es</option><option value="CA">Canad&aacute;</option><option value="CV">Cabo Verde</option><option value="KY">Ilhas Cayman</option><option value="CF">Rep&uacute;blica Centro-Africana</option><option value="TD">Chade</option><option value="CL">Chile</option><option value="CN">China</option><option value="CO">Col&ocirc;mbia</option><option value="KM">Comores</option><option value="CG">Congo</option><option value="CD">Rep&uacute;blica Democr&aacute;tica do Congo</option><option value="CR">Costa Rica</option><option value="CI">Costa do Marfim</option><option value="HR">Cro&aacute;cia</option><option value="CU">Cuba</option><option value="CY">Chipre</option><option value="CZ">Rep&uacute;blica Tcheca</option><option value="DK">Dinamarca</option><option value="DJ">Djibuti</option><option value="DM">Dominica</option><option value="DO">Rep&uacute;blica Dominicana</option><option value="EC">Equador</option><option value="EG">Egito</option><option value="SV">El Salvador</option><option value="GQ">Guin&eacute; Equatorial</option><option value="ER">Eritreia</option><option value="EE">Est&ocirc;nia</option><option value="ET">Eti&oacute;pia</option><option value="FK">Ilhas Malvinas</option><option value="FO">Ilhas Faroe</option><option value="FJ">Fiji</option><option value="FI">Finl&acirc;ndia</option><option value="FR">Fran&ccedil;a</option><option value="GF">Guiana Francesa</option><option value="PF">Polin&eacute;sia Francesa</option><option value="GA">Gab&atilde;o</option><option value="GM">G&acirc;mbia</option><option value="GE">Ge&oacute;rgia</option><option value="DE">Alemanha</option><option value="GH">Gana</option><option value="GI">Gibraltar</option><option value="GR">Gr&eacute;cia</option><option value="GL">Groenl&acirc;ndia</option><option value="GD">Granada</option><option value="GP">Guadalupe</option><option value="GU">Guam</option><option value="GT">Guatemala</option><option value="GN">Guin&eacute;</option><option value="GW">Guin&eacute;-Bissau</option><option value="GY">Guiana</option><option value="HT">Haiti</option><option value="HN">Honduras</option><option value="HK">Hong Kong</option><option value="HU">Hungria</option><option value="IS">Isl&acirc;ndia</option><option value="IN">&Iacute;ndia</option><option value="ID">Indon&eacute;sia</option><option value="IR">Ir&atilde;</option><option value="IQ">Iraque</option><option value="IE">Irlanda</option><option value="IL">Israel</option><option value="IT">It&aacute;lia</option><option value="JM">Jamaica</option><option value="JP">Jap&atilde;o</option><option value="JO">Jord&acirc;nia</option><option value="KZ">Cazaquist&atilde;o</option><option value="KE">Qu&ecirc;nia</option><option value="KI">Kiribati</option><option value="KP">Coreia do Norte</option><option value="KR">Coreia do Sul</option><option value="KW">Kuwait</option><option value="KG">Quirguist&atilde;o</option><option value="LA">Laos</option><option value="LV">Let&ocirc;nia</option><option value="LB">L&iacute;bano</option><option value="LS">Lesoto</option><option value="LR">Lib&eacute;ria</option><option value="LY">L&iacute;bia</option><option value="LI">Liechtenstein</option><option value="LT">Litu&acirc;nia</option><option value="LU">Luxemburgo</option><option value="MO">Macau</option><option value="MK">Maced&ocirc;nia</option><option value="MG">Madagascar</option><option value="MW">Malawi</option><option value="MY">Mal&aacute;sia</option><option value="MV">Maldivas</option><option value="ML">Mali</option><option value="MT">Malta</option><option value="MH">Ilhas Marshall</option><option value="MQ">Martinica</option><option value="MR">Maurit&acirc;nia</option><option value="MU">Maur&iacute;cio</option><option value="YT">Mayotte</option><option value="MX">M&eacute;xico</option><option value="FM">Micron&eacute;sia</option><option value="MD">Mold&aacute;via</option><option value="MC">M&ocirc;naco</option><option value="MN">Mong&oacute;lia</option><option value="ME">Montenegro</option><option value="MS">Montserrat</option><option value="MA">Marrocos</option><option value="MZ">Mo&ccedil;ambique</option><option value="MM">Myanmar</option><option value="NA">Nam&iacute;bia</option><option value="NR">Nauru</option><option value="NP">Nepal</option><option value="NL">Pa&iacute;ses Baixos</option><option value="AN">Antilhas Holandesas</option><option value="NC">Nova Caled&ocirc;nia</option><option value="NZ">Nova Zel&acirc;ndia</option><option value="NI">Nicar&aacute;gua</option><option value="NE">N&iacute;ger</option><option value="NG">Nig&eacute;ria</option><option value="NU">Niue</option><option value="NF">Ilha Norfolk</option><option value="MP">Ilhas Marianas do Norte</option><option value="NO">Noruega</option><option value="OM">Om&atilde;</option><option value="PK">Paquist&atilde;o</option><option value="PW">Palau</option><option value="PS">Palestina</option><option value="PA">Panam&aacute;</option><option value="PG">Papua Nova Guin&eacute;</option><option value="PY">Paraguai</option><option value="PE">Peru</option><option value="PH">Filipinas</option><option value="PL">Pol&ocirc;nia</option><option value="PT">Portugal</option><option value="PR">Porto Rico</option><option value="QA">Catar</option><option value="RE">Reuni&atilde;o</option><option value="RO">Rom&ecirc;nia</option><option value="RU">R&uacute;ssia</option><option value="RW">Ruanda</option><option value="KN">S&atilde;o Crist&oacute;v&atilde;o e Neves</option><option value="LC">Santa L&uacute;cia</option><option value="VC">S&atilde;o Vicente e Granadinas</option><option value="WS">Samoa</option><option value="SM">San Marino</option><option value="ST">S&atilde;o Tom&eacute; e Pr&iacute;ncipe</option><option value="SA">Ar&aacute;bia Saudita</option><option value="SN">Senegal</option><option value="RS">S&eacute;rvia</option><option value="SC">Seychelles</option><option value="SL">Serra Leoa</option><option value="SG">Singapura</option><option value="SK">Eslov&aacute;quia</option><option value="SI">Eslov&ecirc;nia</option><option value="SB">Ilhas Salom&atilde;o</option><option value="SO">Som&aacute;lia</option><option value="ZA">&Aacute;frica do Sul</option><option value="GS">Ilhas Ge&oacute;rgia do Sul e Sandwich do Sul</option><option value="ES">Espanha</option><option value="LK">Sri Lanka</option><option 
+
+value="SD">Sud&atilde;o</option><option value="SR">Suriname</option><option value="SZ">Suazil&acirc;ndia</option><option value="SE">Su&eacute;cia</option><option value="CH">Su&iacute;&ccedil;a</option><option value="SY">S&iacute;ria</option><option value="TW">Taiwan</option><option value="TJ">Tadjiquist&atilde;o</option><option value="TZ">Tanz&acirc;nia</option><option value="TH">Tail&acirc;ndia</option><option value="TG">Togo</option><option value="TK">Tokelau</option><option value="TO">Tonga</option><option value="TT">Trinidad e Tobago</option><option value="TN">Tun&iacute;sia</option><option value="TR">Turquia</option><option value="TM">Turcomenist&atilde;o</option><option value="TC">Ilhas Turks e Caicos</option><option value="TV">Tuvalu</option><option value="UG">Uganda</option><option value="UA">Ucr&acirc;nia</option><option value="AE">Emirados &Aacute;rabes Unidos</option><option value="GB">Reino Unido</option><option value="US">Estados Unidos</option><option value="UM">Ilhas Menores Distantes dos Estados Unidos</option><option value="UY">Uruguai</option><option value="UZ">Uzbequist&atilde;o</option><option value="VU">Vanuatu</option><option value="VE">Venezuela</option><option value="VN">Vietn&atilde;</option><option value="VI">Ilhas Virgens Americanas</option><option value="WF">Wallis e Futuna</option><option value="EH">Saara Ocidental</option><option value="YE">I&ecirc;men</option><option value="ZM">Z&acirc;mbia</option><option value="ZW">Zimb&aacute;bue</option></select> <!-- E-mail e Telefone --><label for="email_indicador">Seu e-mail:</label> <input id="email_indicador" name="email_indicador" required="" type="text" /> <label for="telefone">Telefone:</label> <input id="telefone" name="telefone" required="" type="text" /> <!-- Prognósticos --><label>Progn&oacute;sticos:</label>
+
+<div style="display: flex; gap: 5px"><input id="pri_premio" name="pri_premio" pattern="\d{1,2}x\d{1,2}" required="" title="Formato: nxn (ex: 1x1)" type="text" /> <input id="seg_premio" name="seg_premio" pattern="\d{1,2}x\d{1,2}" required="" title="Formato: nxn (ex: 1x1)" type="text" /> <input id="ter_premio" name="ter_premio" pattern="\d{1,2}x\d{1,2}" required="" title="Formato: nxn (ex: 1x1)" type="text" /> <input id="qua_premio" name="qua_premio" pattern="\d{1,2}x\d{1,2}" required="" title="Formato: nxn (ex: 1x1)" type="text" /> <input id="qui_premio" name="qui_premio" pattern="\d{1,2}x\d{1,2}" required="" title="Formato: nxn (ex: 1x1)" type="text" /></div>
+<!-- Métodos de Pagamento --><label>M&eacute;todo de Pagamento:</label> <select id="paymentMethod" name="paymentMethod" required=""><option selected="selected" value="">Selecione o m&eacute;todo de pagamento</option><option value="metamask">MetaMask</option><option value="qrcode">QR Code</option><option value="pix">PIX</option></select> <!-- Campos adicionais para PIX -->
+
+<div id="pixDetails" style="display: none"><label for="pixKey">Chave PIX:</label> <input id="pixKey" name="pixKey" type="text" />
+<p>Ap&oacute;s submeter, voc&ecirc; receber&aacute; as instru&ccedil;&otilde;es para pagamento via PIX.</p>
+</div>
+<!-- Botões de Ação --><button type="submit">Submeter</button><button class="reset" type="reset">Redefinir</button></form>
+<!-- Modal do QR Code -->
+
+<div id="qrCodeModal">
+<h3>Escaneie o QR Code para pagar</h3>
+<img alt="QR Code" id="qrCodeImage" src="" /><button onclick="fecharModal()">Fechar</button></div>
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script><script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script><script>
+    // Inicialização do Web3 e solicitação de acesso ao MetaMask
+    let web3;
+
+    async function initWeb3() {
+      if (typeof window.ethereum !== 'undefined') {
+        web3 = new Web3(window.ethereum);
+        try {
+          // Solicitar acesso à conta do usuário
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          console.log('MetaMask conectado com sucesso!');
+        } catch (error) {
+          console.error('Usuário negou acesso ao MetaMask:', error);
+          alert('Para usar o MetaMask, por favor, permita o acesso à sua conta.');
+          return false; //Indica que a inicialização falhou
+        }
+      } else {
+        console.warn('MetaMask não detectado!');
+        alert('Por favor, instale o MetaMask para usar este método de pagamento.');
+        return false; //Indica que a inicialização falhou
+      }
+      return true; //Indica que a inicialização foi bem-sucedida
+    }
+
+    // Função para pagar com MetaMask
+    async function payWithMetaMask() {
+      if (!web3) { //Verifica se o web3 foi inicializado com sucesso
+        alert('MetaMask não está pronto. Tente novamente.');
+        return;
+      }
+
+      try {
+        const accounts = await web3.eth.getAccounts();
+        const account = accounts[0];
+        const valorAposta = web3.utils.toWei('0.00033', 'ether');
+        const contractAddress = '0x...'; // Substitua pelo endereço do contrato
+
+        const transactionParameters = {
+          from: account,
+          to: contractAddress,
+          value: valorAposta,
+          gas: 21000, // Gas limit (pode precisar ajuste)
+        };
+
+        const txHash = await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+        });
+
+        console.log('Transação enviada com hash:', txHash);
+        alert('Pagamento realizado com sucesso! Hash da transação: ' + txHash);
+      } catch (error) {
+        console.error('Erro ao realizar pagamento com MetaMask:', error);
+        alert('Erro ao realizar pagamento com MetaMask. Verifique o console para mais detalhes.');
+      }
+    }
+
+
+    // Função para gerar QR Code
+    function generateQRCode() {
+      const enderecoContrato = '0x8fa024467a4ab1286e78da4a876d18abaea667a38f1e2679069ce6b1ee8663d7'; // Substitua pelo endereço do contrato
+      const valorAposta = '0.00033'; // Valor da aposta em ETH
+      const qrCodeData = `ethereum:${enderecoContrato}?value=${web3.utils.toWei(valorAposta, 'ether')}`;
+
+
+      // Limpa o QR Code anterior (se existir)
+      qrCodeImage.src = "";
+      document.getElementById('qrCodeImage').innerHTML = ''; // Limpa qualquer conteúdo anterior
+
+      // Gera o QR Code usando qrcodejs
+      const qrcode = new QRCode(document.getElementById('qrCodeImage'), {
+        text: qrCodeData,
+        width: 128,
+        height: 128,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+
+       // Exibir modal
+       qrCodeModal.style.display = 'block';
+    }
+
+
+    // Integração com PIX (simulada)
+    function payWithPIX() {
+      const pixKey = document.getElementById('pixKey').value;
+
+      if (!pixKey) {
+        alert('Por favor, insira a chave PIX.');
+        return;
+      }
+
+      // Simulação das instruções de pagamento
+      const instructions = `
+        Instruções de Pagamento PIX:
+        1. Abra seu aplicativo bancário ou carteira digital.
+        2. Escolha a opção de pagamento PIX.
+        3. Utilize a seguinte chave PIX: ${pixKey}
+        4. Insira o valor de 0.00033 ETH (ou o equivalente em BRL).
+        5. Confirme o pagamento e guarde o comprovante.
+      `;
+      alert(instructions);
+    }
+
+
+    // Fechar modal do QR Code
+    function fecharModal() {
+      qrCodeModal.style.display = 'none';
+    }
+
+
+    // Validação do formulário e lógica de pagamento
+    const form = document.getElementById('apostaForm');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const paymentMethod = document.getElementById('paymentMethod').value;
+
+       if (paymentMethod === 'metamask') {
+          if (await initWeb3()) { // Inicializa o web3 e verifica o resultado
+              payWithMetaMask();
+          }
+       } else if (paymentMethod === 'qrcode') {
+            if(!web3){
+                if (await initWeb3() === false) {
+                return; // Não prossegue se a inicialização do MetaMask falhar
+                }
+            }
+            generateQRCode();
+       } else if (paymentMethod === 'pix') {
+        payWithPIX();
+      } else {
+        alert('Selecione um método de pagamento.');
+      }
+    });
+
+
+    // Lógica para exibir/ocultar detalhes do PIX
+    const paymentMethodSelect = document.getElementById('paymentMethod');
+    const pixDetailsDiv = document.getElementById('pixDetails');
+
+    paymentMethodSelect.addEventListener('change', function() {
+      if (this.value === 'pix') {
+        pixDetailsDiv.style.display = 'block';
+      } else {
+        pixDetailsDiv.style.display = 'none';
+      }
+    });
+
+    // Inicializa o Web3 quando a página carrega
+    window.addEventListener('load', async () => {
+        await initWeb3();
+    });
+  </script></body>
+</html>
