@@ -1,0 +1,8 @@
+src/
+├── components/
+│   ├── ApostaForm.jsx  // Componente de formulário de aposta
+│   ├── Header.jsx      // Cabeçalho da aplicação
+│   └── Footer.jsx      // Rodapé da aplicação
+├── App.jsx             // Componente principal da aplicação
+├── index.js            // Ponto de entrada da aplicação
+└── contratoABI.json    // ABI do contrato inteligente
