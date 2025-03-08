@@ -185,8 +185,8 @@
       if (typeof window.ethereum !== 'undefined') {
         const web3 = new Web3(window.ethereum);
         try {
-          await window.ethereum.enable();
-          const accounts = await web3.eth.getAccounts();
+          // Solicitar acesso à conta do usuário
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
           const account = accounts[0];
 
           // Valor da aposta (0.00033 ETH em Wei)
@@ -195,13 +195,14 @@
           // Enviar transação
           await web3.eth.sendTransaction({
             from: account,
-            to: '0x8fa024467a4ab1286e78da4a876d18abaea667a38f1e2679069ce6b1ee8663d7', // Endereço do contrato
+            to: '0x...', // Endereço do contrato
             value: valorAposta,
           });
 
           alert('Pagamento realizado com sucesso!');
         } catch (error) {
           console.error('Erro ao realizar pagamento:', error);
+          alert('Erro ao realizar pagamento. Verifique o console para mais detalhes.');
         }
       } else {
         alert('Por favor, instale a MetaMask.');
