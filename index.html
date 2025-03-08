@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Apostas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #000;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .formulario {
+      display: inline-block;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: left;
+      max-width: 500px;
+      width: 100%;
+    }
+    .formulario input, .formulario select, .formulario button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 12px;
+      box-sizing: border-box; /* Garante que padding e border não aumentem a largura */
+    }
+    .formulario button {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    .formulario button.reset {
+      background-color: #dc3545;
+    }
+    .formulario button.qrcode {
+      background-color: #007bff;
+    }
+
+    .formulario button.pix {
+      background-color: #f9c851; /* Cor de destaque para o botão PIX */
+      color: #000; /* Texto preto para melhor contraste */
+    }
+
+    .formulario button:hover {
+      opacity: 0.9;
+    }
+    #qrCodeModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    #qrCodeModal img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <form class="formulario" id="apostaForm">
+    <h2>Formulário de Apostas</h2>
+    <p style="text-align: center; color: red; font-weight: bold;">
+      GANHA COM 5, 4, 3, 2 E ATÉ COM 1 PONTO APENAS - SORTEIOS PELA LOTERIA FEDERAL.
+    </p>
+
+    <!-- Concurso e Data -->
+    <label for="num_extracao">Concurso nº:</label>
+    <input type="number" id="num_extracao" name="num_extracao" required>
+
+    <label for="data_extracao">Data:</label>
+    <input id="data_extracao" name="data_extracao" type="date" required>
+
+    <!-- Token e País -->
+    <label for="num_token">Token nº:</label>
+    <input type="text" id="num_token" name="num_token" required>
+
+    <label for="country_pais">País:</label>
+    <select id="country_pais" name="country_pais" required>
+      <option value="">Selecione um país</option>
+      <option value="AF">Afeganistão</option>
+      <option value="AL">Albânia</option>
+      <option value="DZ">Argélia</option>
+      <option value="AD">Andorra</option>
+      <option value="AO">Angola</option>
+      <option value="AI">Anguilla</option>
+      <option value="AG">Antígua e Barbuda</option>
+      <option value="AR">Argentina</option>
+      <option value="AM">Armênia</option>
+      <option value="AW">Aruba</option>
+      <option value="AU">Austrália</option>
+      <option value="AT">Áustria</option>
+      <option value="AZ">Azerbaijão</option>
+      <option value="BS">Bahamas</option>
+      <option value="BH">Bahrein</option>
+      <option value="BD">Bangladesh</option>
+      <option value="BB">Barbados</option>
+      <option value="BY">Belarus</option>
+      <option value="BE">Bélgica</option>
+      <option value="BZ">Belize</option>
+      <option value="BJ">Benin</option>
+      <option value="BM">Bermudas</option>
+      <option value="BT">Butão</option>
+      <option value="BO">Bolívia</option>
+      <option value="BA">Bósnia e Herzegovina</option>
+      <option value="BW">Botsuana</option>
+      <option value="BR">Brasil</option>
+      <option value="VG">Ilhas Virgens Britânicas</option>
+      <option value="BN">Brunei</option>
+      <option value="BG">Bulgária</option>
+      <option value="BF">Burkina Faso</option>
+      <option value="BI">Burundi</option>
+      <option value="KH">Camboja</option>
+      <option value="CM">Camarões</option>
+      <option value="CA">Canadá</option>
+      <option value="CV">Cabo Verde</option>
+      <option value="KY">Ilhas Cayman</option>
+      <option value="CF">República Centro-Africana</option>
+      <option value="TD">Chade</option>
+      <option value="CL">Chile</option>
+      <option value="CN">China</option>
+      <option value="CO">Colômbia</option>
+      <option value="KM">Comores</option>
+      <option value="CG">Congo</option>
+      <option value="CD">República Democrática do Congo</option>
+      <option value="CR">Costa Rica</option>
+      <option value="CI">Costa do Marfim</option>
+      <option value="HR">Croácia</option>
+      <option value="CU">Cuba</option>
+      <option value="CY">Chipre</option>
+      <option value="CZ">República Tcheca</option>
+      <option value="DK">Dinamarca</option>
+      <option value="DJ">Djibuti</option>
+      <option value="DM">Dominica</option>
+      <option value="DO">República Dominicana</option>
+      <option value="EC">Equador</option>
+      <option value="EG">Egito</option>
+      <option value="SV">El Salvador</option>
+      <option value="GQ">Guiné Equatorial</option>
+      <option value="ER">Eritreia</option>
+      <option value="EE">Estônia</option>
+      <option value="ET">Etiópia</option>
+      <option value="FK">Ilhas Malvinas</option>
+      <option value="FO">Ilhas Faroe</option>
+      <option value="FJ">Fiji</option>
+      <option value="FI">Finlândia</option>
+      <option value="FR">França</option>
+      <option value="GF">Guiana Francesa</option>
+      <option value="PF">Polinésia Francesa</option>
+      <option value="GA">Gabão</option>
+      <option value="GM">Gâmbia</option>
+      <option value="GE">Geórgia</option>
+      <option value="DE">Alemanha</option>
+      <option value="GH">Gana</option>
+      <option value="GI">Gibraltar</option>
+      <option value="GR">Grécia</option>
+      <option value="GL">Groenlândia</option>
+      <option value="GD">Granada</option>
+      <option value="GP">Guadalupe</option>
+      <option value="GU">Guam</option>
+      <option value="GT">Guatemala</option>
+      <option value="GN">Guiné</option>
+      <option value="GW">Guiné-Bissau</option>
+      <option value="GY">Guiana</option>
+      <option value="HT">Haiti</option>
+      <option value="HN">Honduras</option>
+      <option value="HK">Hong Kong</option>
+      <option value="HU">Hungria</option>
+      <option value="IS">Islândia</option>
+      <option value="IN">Índia</option>
+      <option value="ID">Indonésia</option>
+      <option value="IR">Irã</option>
+      <option value="IQ">Iraque</option>
+      <option value="IE">Irlanda</option>
+      <option value="IL">Israel</option>
+      <option value="IT">Itália</option>
+      <option value="JM">Jamaica</option>
+      <option value="JP">Japão</option>
+      <option value="JO">Jordânia</option>
+      <option value="KZ">Cazaquistão</option>
+      <option value="KE">Quênia</option>
+      <option value="KI">Kiribati</option>
+      <option value="KP">Coreia do Norte</option>
+      <option value="KR">Coreia do Sul</option>
+      <option value="KW">Kuwait</option>
+      <option value="KG">Quirguistão</option>
+      <option value="LA">Laos</option>
+      <option value="LV">Letônia</option>
+      <option value="LB">Líbano</option>
+      <option value="LS">Lesoto</option>
+      <option value="LR">Libéria</option>
+      <option value="LY">Líbia</option>
+      <option value="LI">Liechtenstein</option>
+      <option value="LT">Lituânia</option>
+      <option value="LU">Luxemburgo</option>
+      <option value="MO">Macau</option>
+      <option value="MK">Macedônia</option>
+      <option value="MG">Madagascar</option>
+      <option value="MW">Malawi</option>
+      <option value="MY">Malásia</option>
+      <option value="MV">Maldivas</option>
+      <option value="ML">Mali</option>
+      <option value="MT">Malta</option>
+      <option value="MH">Ilhas Marshall</option>
+      <option value="MQ">Martinica</option>
+      <option value="MR">Mauritânia</option>
+      <option value="MU">Maurício</option>
+      <option value="YT">Mayotte</option>
+      <option value="MX">México</option>
+      <option value="FM">Micronésia</option>
+      <option value="MD">Moldávia</option>
+      <option value="MC">Mônaco</option>
+      <option value="MN">Mongólia</option>
+      <option value="ME">Montenegro</option>
+      <option value="MS">Montserrat</option>
+      <option value="MA">Marrocos</option>
+      <option value="MZ">Moçambique</option>
+      <option value="MM">Myanmar</option>
+      <option value="NA">Namíbia</option>
+      <option value="NR">Nauru</option>
+      <option value="NP">Nepal</option>
+      <option value="NL">Países Baixos</option>
+      <option value="AN">Antilhas Holandesas</option>
+      <option value="NC">Nova Caledônia</option>
+      <option value="NZ">Nova Zelândia</option>
+      <option value="NI">Nicarágua</option>
+      <option value="NE">Níger</option>
+      <option value="NG">Nigéria</option>
+      <option value="NU">Niue</option>
+      <option value="NF">Ilha Norfolk</option>
+      <option value="MP">Ilhas Marianas do Norte</option>
+      <option value="NO">Noruega</option>
+      <option value="OM">Omã</option>
+      <option value="PK">Paquistão</option>
+      <option value="PW">Palau</option>
+      <option value="PS">Palestina</option>
+      <option value="PA">Panamá</option>
+      <option value="PG">Papua Nova Guiné</option>
+      <option value="PY">Paraguai</option>
+      <option value="PE">Peru</option>
+      <option value="PH">Filipinas</option>
+      <option value="PL">Polônia</option>
+      <option value="PT">Portugal</option>
+      <option value="PR">Porto Rico</option>
+      <option value="QA">Catar</option>
+      <option value="RE">Reunião</option>
+      <option value="RO">Romênia</option>
+      <option value="RU">Rússia</option>
+      <option value="RW">Ruanda</option>
+      <option value="KN">São Cristóvão e Neves</option>
+      <option value="LC">Santa Lúcia</option>
+      <option value="VC">São Vicente e Granadinas</option>
+      <option value="WS">Samoa</option>
+      <option value="SM">San Marino</option>
+      <option value="ST">São Tomé e Príncipe</option>
+      <option value="SA">Arábia Saudita</option>
+      <option value="SN">Senegal</option>
+      <option value="RS">Sérvia</option>
+      <option value="SC">Seychelles</option>
+      <option value="SL">Serra Leoa</option>
+      <option value="SG">Singapura</option>
+      <option value="SK">Eslováquia</option>
+      <option value="SI">Eslovênia</option>
+      <option value="SB">Ilhas Salomão</option>
+      <option value="SO">Somália</option>
+      <option value="ZA">África do Sul</option>
+      <option value="GS">Ilhas Geórgia do Sul e Sandwich do Sul</option>
+      <option value="ES">Espanha</option>
+      <option value="LK">Sri Lanka</option>
+      <option value="SD">Sudão</option>
+      <option value="SR">Suriname</option>
+      <option value="SZ">Suazilândia</option>
+      <option value="SE">Suécia</option>
+      <option value="CH">Suíça</option>
+      <option value="SY">Síria</option>
+      <option value="TW">Taiwan</option>
+      <option value="TJ">Tadjiquistão</option>
+      <option value="TZ">Tanzânia</option>
+      <option value="TH">Tailândia</option>
+      <option value="TG">Togo</option>
+      <option value="TK">Tokelau</option>
+      <option value="TO">Tonga</option>
+      <option value="TT">Trinidad e Tobago</option>
+      <option value="TN">Tunísia</option>
+      <option value="TR">Turquia</option>
+      <option value="TM">Turcomenistão</option>
+      <option value="TC">Ilhas Turks e Caicos</option>
+      <option value="TV">Tuvalu</option>
+      <option value="UG">Uganda</option>
+      <option value="UA">Ucrânia</option>
+      <option value="AE">Emirados Árabes Unidos</option>
+      <option value="GB">Reino Unido</option>
+      <option value="US">Estados Unidos</option>
+      <option value="UM">Ilhas Menores Distantes dos Estados Unidos</option>
+      <option value="UY">Uruguai</option>
+      <option value="UZ">Uzbequistão</option>
+      <option value="VU">Vanuatu</option>
+      <option value="VE">Venezuela</option>
+      <option value="VN">Vietnã</option>
+      <option value="VI">Ilhas Virgens Americanas</option>
+      <option value="WF">Wallis e Futuna</option>
+      <option value="EH">Saara Ocidental</option>
+      <option value="YE">Iêmen</option>
+      <option value="ZM">Zâmbia</option>
+      <option value="ZW">Zimbábue</option>
+    </select>
+
+    <!-- E-mail e Telefone -->
+    <label for="email_indicador">Seu e-mail:</label>
+    <input id="email_indicador" name="email_indicador" type="email" required>
+
+    <label for="telefone">Telefone:</label>
+    <input id="telefone" name="telefone" type="tel" required>
+
+    <!-- Prognósticos -->
+    <label>Prognósticos:</label>
+    <div style="display: flex; gap: 5px;">
+      <input id="pri_premio" name="pri_premio" pattern="\d{1,2}x\d{1,2}" title="Formato: nxn (ex: 1x1)" required>
+      <input id="seg_premio" name="seg_premio" pattern="\d{1,2}x\d{1,2}" title="Formato: nxn (ex: 1x1)" required>
+      <input id="ter_premio" name="ter_premio" pattern="\d{1,2}x\d{1,2}" title="Formato: nxn (ex: 1x1)" required>
+      <input id="qua_premio" name="qua_premio" pattern="\d{1,2}x\d{1,2}" title="Formato: nxn (ex: 1x1)" required>
+      <input id="qui_premio" name="qui_premio" pattern="\d{1,2}x\d{1,2}" title="Formato: nxn (ex: 1x1)" required>
+    </div>
+
+    <!-- Métodos de Pagamento -->
+    <label>Método de Pagamento:</label>
+    <select id="paymentMethod" name="paymentMethod" required>
+      <option value="">Selecione o método de pagamento</option>
+      <option value="pix">PIX</option>
+    </select>
+
+    <!-- Campos adicionais para PIX -->
+    <div id="pixDetails" style="display: none;">
+      <label for="pixKey">Chave PIX:</label>
+      <input type="text" id="pixKey" name="pixKey">
+      <p>Após submeter, você receberá as instruções para pagamento via PIX.</p>
+    </div>
+
+    <!-- Botões de Ação -->
+    <button type="submit">Submeter</button>
+    <button type="reset" class="reset">Redefinir</button>
+  </form>
+
+  <!-- Modal do QR Code -->
+  <div id="qrCodeModal">
+    <h3>Escaneie o QR Code para pagar</h3>
+    <img id="qrCodeImage" src="" alt="QR Code">
+    <button onclick="fecharModal()">Fechar</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+  <script>
+
+    // Integração com PIX (simulada)
+    function payWithPIX() {
+      const pixKey = document.getElementById('pixKey').value;
+
+      if (!pixKey) {
+        alert('Por favor, insira a chave PIX.');
+        return;
+      }
+
+      // Simulação das instruções de pagamento
+      const instructions = `
+        Instruções de Pagamento PIX:
+        1. Abra seu aplicativo bancário ou carteira digital.
+        2. Escolha a opção de pagamento PIX.
+        3. Utilize a seguinte chave PIX: ${pixKey}
+        4. Insira o valor de 0.00033 ETH (ou o equivalente em BRL).
+        5. Confirme o pagamento e guarde o comprovante.
+      `;
+      alert(instructions);
+    }
+
+    // Validação do formulário e lógica de pagamento
+    const form = document.getElementById('apostaForm');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const paymentMethod = document.getElementById('paymentMethod').value;
+
+       if (paymentMethod === 'pix') {
+        payWithPIX();
+      } else {
+        alert('Selecione um método de pagamento.');
+      }
+    });
+
+    // Lógica para exibir/ocultar detalhes do PIX
+    const paymentMethodSelect = document.getElementById('paymentMethod');
+    const pixDetailsDiv = document.getElementById('pixDetails');
+
+    paymentMethodSelect.addEventListener('change', function() {
+      if (this.value === 'pix') {
+        pixDetailsDiv.style.display = 'block';
+      } else {
+        pixDetailsDiv.style.display = 'none';
+      }
+    });
+
+     // Esconde os detalhes do PIX ao carregar a página
+     pixDetailsDiv.style.display = 'none';
+
+    // Remove Metamask e Qrcode das opções
+    document.addEventListener("DOMContentLoaded", function() {
+        var selectElement = document.getElementById("paymentMethod");
+
+        // Remover a opção Metamask
+        var metamaskOption = selectElement.querySelector('option[value="metamask"]');
+        if (metamaskOption) {
+            selectElement.removeChild(metamaskOption);
+        }
+
+        // Remover a opção Qrcode
+        var qrcodeOption = selectElement.querySelector('option[value="qrcode"]');
+        if (qrcodeOption) {
+            selectElement.removeChild(qrcodeOption);
+        }
+    });
+
+  </script>
+</body>
+</html>
