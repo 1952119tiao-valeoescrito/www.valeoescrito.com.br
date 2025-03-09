@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Aposta Descentralizada</title>
     <style>
-        /* Estilos CSS (mantenha os estilos originais aqui) */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #f4f4f4;
-            text-align: center; /* Centraliza o conteúdo */
+            text-align: center;
         }
 
         .container {
@@ -20,21 +19,21 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: left; /* Restaura o alinhamento à esquerda dentro do container */
+            text-align: left;
         }
 
         label {
-            display: inline-block; /* Permite ajustar a largura */
-            width: 150px; /* Defina a largura desejada */
-            text-align: right; /* Alinha o texto à direita */
-            margin-right: 10px; /* Adiciona um espaço entre o rótulo e o campo */
+            display: inline-block;
+            width: 150px; /* Ajuste a largura conforme necessário */
+            text-align: right;
+            margin-right: 10px;
             margin-bottom: 5px;
         }
 
         input[type="text"],
         input[type="number"],
         select {
-            width: 200px; /* Ajuste a largura dos campos */
+            width: 200px;
             padding: 8px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
@@ -42,7 +41,6 @@
             box-sizing: border-box;
         }
 
-        /* Estilos para os botões Submeter/Redefinir */
         .button-group {
             margin-top: 20px;
             text-align: center;
@@ -63,7 +61,6 @@
             background-color: #0056b3;
         }
 
-        /* Estilos para os botões Metamask/QRCode */
         .wallet-connect {
             margin-top: 20px;
             text-align: center;
@@ -103,8 +100,8 @@
                     <td colspan="11">Preencha os dados abaixo:</td>
                 </tr>
                 <tr>
-                    <td colspan="2"><label for="contractAddress">Endereço do Contrato:</label></td>
-                    <td colspan="11"><input type="text" id="contractAddress" name="contractAddress" required placeholder="0x8fa024467a4ab1286e78da4a876d18abaea667a38f1e2679069ce6b1ee8663d7" style="width: 100%;"></td>
+                    <td colspan="2"><label for="extracao">Extração n.:</label></td>
+                    <td colspan="11"><input type="text" id="extracao" name="extracao" required placeholder="Número da Extração" style="width: 100%;"></td>
                 </tr>
                 <tr>
                     <td colspan="2"><label for="tokenNumber">Token Nº:</label></td>
@@ -158,11 +155,10 @@
                         </div>
                     </td>
                 </tr>
-                 <tr>
+                <tr>
                     <td colspan="13" style="text-align: center">
                         <div class="wallet-connect">
-                            <button onclick="conectarComQRcode()">Conectar com QR Code</button>
-                            <button onclick="conectarComMetamask()">Conectar com Metamask</button>
+                           <button onclick="conectarComMetamask()">Conectar com Metamask</button>
                         </div>
                     </td>
                 </tr>
@@ -224,13 +220,18 @@
         }
     }
 
-    // Funções para conectar com Metamask e QR Code (a serem implementadas)
+    // Função para conectar com Metamask
     async function conectarComMetamask() {
-       if (window.ethereum) {
+        if (window.ethereum) {
             try {
                 await window.ethereum.request({ method: 'eth_requestAccounts' });
                 web3 = new Web3(window.ethereum);
                 const accounts = await web3.eth.getAccounts();
+                 const contractAddress = document.getElementById("contractAddress").value;
+                 if (!contractAddress) {
+                      alert("Preencha o campo Extração n.:");
+                      return;
+                 }
                 alert("Conectado ao Metamask! Conta: " + accounts[0]);
             } catch (error) {
                 console.error("Erro ao conectar com Metamask:", error);
@@ -239,10 +240,6 @@
         } else {
             alert("Metamask não detectado. Instale a extensão Metamask.");
         }
-    }
-
-    function conectarComQRcode() {
-        alert("Conexão com QR Code não implementada. Use WalletConnect.");
     }
 
     // Carrega a lista de países quando a página é carregada
