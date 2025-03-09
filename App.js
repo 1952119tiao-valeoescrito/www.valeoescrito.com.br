@@ -536,27 +536,27 @@ function App() {
     setPrognosticos(newPrognosticos);
   };
 
-  const handleApostar = async () => {
-    if (!contract) {
-      setMensagem('Contrato não inicializado. Verifique o ABI e o endereço.');
-      return;
-    }
+ const handleApostar = async () => {
+  if (!contract) {
+    setMensagem('Contrato não inicializado. Verifique o ABI e o endereço.');
+    return;
+  }
 
-    try {
-      const prognosticosNumericos = prognosticos.map(Number);
+  try {
+    const prognosticosNumericos = prognosticos.map(Number);
 
-      // Converter a taxa de aposta para o formato correto (Wei)
-      const apostaValue = taxaAposta;
+    // Converter a taxa de aposta para Ether
+    const apostaValue = web3.utils.toWei(taxaAposta.toString(), 'wei');  // CONVERTER PARA WEI !!!
 
-      await contract.methods.apostar(prognosticosNumericos)
-        .send({ from: account, value: apostaValue });
+    await contract.methods.apostar(prognosticosNumericos)
+      .send({ from: account, value: apostaValue });
 
-      setMensagem('Aposta realizada com sucesso!');
-    } catch (error) {
-      console.error("Erro ao apostar:", error);
-      setMensagem('Erro ao apostar: ' + error.message);
-    }
-  };
+    setMensagem('Aposta realizada com sucesso!');
+  } catch (error) {
+    console.error("Erro ao apostar:", error);
+    setMensagem('Erro ao apostar: ' + error.message);
+  }
+};
 
   return (
     <div className="App">
