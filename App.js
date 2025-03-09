@@ -12,7 +12,7 @@ function App() {
   const [mensagem, setMensagem] = useState('');
 
   // Substitua pelos valores reais do seu contrato
-  const contractAddress = 'SEU_CONTRATO_ADDRESS';
+  const contractAddress = '0x8fa024467a4ab1286e78da4a876d18abaea667a38f1e2679069ce6b1ee8663d7';
   const contractABI = [
     // Cole o ABI do seu contrato aqui (você obterá isso após compilar o contrato)
   ];
