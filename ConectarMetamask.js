@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { useState, useEffect } from "react";
 import contratoABI from "./contratoABI.json";
 
-const contratoEndereco = "0x..."; // Endereço do contrato
+const contratoEndereco = "0x8fa024467a4ab1286e78da4a876d18abaea667a38f1e2679069ce6b1ee8663d7"; // Endereço do contrato
 
 function ApostaForm() {
   const [prognosticos, setPrognosticos] = useState(["", "", "", "", ""]);
