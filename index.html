@@ -24,7 +24,7 @@
 
         label {
             display: inline-block;
-            width: 150px;
+            width: 150px; /* Largura uniforme para os labels */
             text-align: right;
             margin-right: 10px;
             margin-bottom: 5px;
@@ -172,7 +172,7 @@
     const countriesJsonUrl = 'https://gist.githubusercontent.com/incredimike/1469814/raw/75ebc2984795ced98c9c19b2f42f6a08b0b84e1a/countries.json';
 
     // Lista de países de fallback (caso o JSON não carregue)
-     const fallbackCountries = {
+    const fallbackCountries = {
         "AF": "Afeganistão", "ZA": "África do Sul", "AL": "Albânia", "DE": "Alemanha", "AD": "Andorra", "AO": "Angola", "AG": "Antígua e Barbuda", "SA": "Arábia Saudita", "DZ": "Argélia", "AR": "Argentina", "AM": "Armênia", "AU": "Austrália", "AT": "Áustria", "AZ": "Azerbaijão", "BS": "Bahamas", "BH": "Bahrein", "BD": "Bangladesh", "BB": "Barbados", "BY": "Belarus", "BE": "Bélgica", "BZ": "Belize", "BJ": "Benin", "BT": "Butão", "BO": "Bolívia", "BA": "Bósnia e Herzegovina", "BW": "Botsuana", "BR": "Brasil", "BN": "Brunei", "BG": "Bulgária", "BF": "Burkina Faso", "BI": "Burundi", "CV": "Cabo Verde", "KH": "Camboja", "CA": "Canadá", "TD": "Chade", "CL": "Chile", "CN": "China", "CY": "Chipre", "CO": "Colômbia", "KM": "Comores", "CG": "Congo", "CD": "Congo, República Democrática", "KR": "Coreia do Sul", "CR": "Costa Rica", "HR": "Croácia", "CU": "Cuba", "DK": "Dinamarca", "DM": "Dominica", "DO": "República Dominicana", "EC": "Equador", "EG": "Egito", "SV": "El Salvador", "AE": "Emirados Árabes Unidos", "ER": "Eritreia", "SK": "Eslováquia", "SI": "Eslovênia", "ES": "Espanha", "US": "Estados Unidos", "EE": "Estônia", "ET": "Etiópia", "FJ": "Fiji", "FI": "Finlândia", "FR": "França", "GA": "Gabão", "GM": "Gâmbia", "GE": "Geórgia", "DE": "Alemanha", "GH": "Gana", "GR": "Grécia", "GD": "Granada", "GT": "Guatemala", "GN": "Guiné", "GW": "Guiné-Bissau", "GQ": "Guiné Equatorial", "GY": "Guiana", "HT": "Haiti", "HN": "Honduras", "HU": "Hungria", "IS": "Islândia", "IN": "Índia", "ID": "Indonésia", "IR": "Irã", "IQ": "Iraque", "IE": "Irlanda", "IL": "Israel", "IT": "Itália", "JM": "Jamaica", "JP": "Japão", "JO": "Jordânia", "KZ": "Cazaquistão", "KE": "Quênia", "KI": "Kiribati", "KW": "Kuwait", "KG": "Quirguistão", "LA": "Laos", "LV": "Letônia", "LB": "Líbano", "LS": "Lesoto", "LR": "Libéria", "LY": "Líbia", "LI": "Liechtenstein", "LT": "Lituânia", "LU": "Luxemburgo", "MK": "Macedônia", "MG": "Madagascar", "MW": "Malawi", "MY": "Malásia", "MV": "Maldivas", "ML": "Mali", "MT": "Malta", "MH": "Ilhas Marshall", "MR": "Mauritânia", "MU": "Maurício", "MX": "México", "FM": "Micronésia", "MD": "Moldávia", "MC": "Mônaco", "MN": "Mongólia", "ME": "Montenegro", "MA": "Marrocos", "MZ": "Moçambique", "MM": "Myanmar", "NA": "Namíbia", "NR": "Nauru", "NP": "Nepal", "NL": "Países Baixos", "NZ": "Nova Zelândia", "NI": "Nicarágua", "NE": "Níger", "NG": "Nigéria", "NO": "Noruega", "OM": "Omã", "PK": "Paquistão", "PW": "Palau", "PA": "Panamá", "PG": "Papua Nova Guiné", "PY": "Paraguai", "PE": "Peru", "PL": "Polônia", "PT": "Portugal", "QA": "Catar", "RO": "Romênia", "RU": "Rússia", "RW": "Ruanda", "KN": "São Cristóvão e Neves", "LC": "Santa Lúcia", "VC": "São Vicente e Granadinas", "WS": "Samoa", "SM": "San Marino", "ST": "São Tomé e Príncipe", "SA": "Arábia Saudita", "SN": "Senegal", "RS": "Sérvia", "SC": "Seychelles", "SL": "Serra Leoa", "SG": "Singapura", "SK": "Eslováquia", "SI": "Eslovênia", "SB": "Ilhas Salomão", "SO": "Somália", "ZA": "África do Sul", "SS": "Sudão do Sul", "ES": "Espanha", "LK": "Sri Lanka", "SD": "Sudão", "SR": "Suriname", "SZ": "Suazilândia", "SE": "Suécia", "CH": "Suíça", "SY": "Síria", "TW": "Taiwan", "TJ": "Tadjiquistão", "TZ": "Tanzânia", "TH": "Tailândia", "TL": "Timor-Leste", "TG": "Togo", "TO": "Tonga", "TT": "Trinidad e Tobago", "TN": "Tunísia", "TR": "Turquia", "TM": "Turcomenistão", "TV": "Tuvalu", "UG": "Uganda", "UA": "Ucrânia", "AE": "Emirados Árabes Unidos", "GB": "Reino Unido", "US": "Estados Unidos", "UY": "Uruguai", "UZ": "Uzbequistão", "VU": "Vanuatu", "VE": "Venezuela", "VN": "Vietnã", "YE": "Iémen", "ZM": "Zâmbia", "ZW": "Zimbábue"
     };
 
@@ -232,16 +232,17 @@
       }
     // Função para conectar com Metamask
     async function conectarComMetamask() {
+        const extracaoValue = document.getElementById("extracao").value; //Obtém o valor do campo "Extração n.:"
+         if (!extracaoValue) { //Verifica se o campo "Extração n.:" está vazio
+             alert("Preencha o campo Extração n.:"); //Exibe um alerta se o campo estiver vazio
+             return; //Interrompe a execução da função
+         }
+
         if (window.ethereum) {
             try {
                 await window.ethereum.request({ method: 'eth_requestAccounts' });
                 web3 = new Web3(window.ethereum);
                 const accounts = await web3.eth.getAccounts();
-                 const extracaoValue = document.getElementById("extracao").value;
-                 if (!extracaoValue) {
-                      alert("Preencha o campo Extração n.:");
-                      return;
-                 }
                 alert("Conectado ao Metamask! Conta: " + accounts[0]);
             } catch (error) {
                 console.error("Erro ao conectar com Metamask:", error);
