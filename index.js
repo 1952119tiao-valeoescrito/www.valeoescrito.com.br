@@ -1,10 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+// index.js
+const ethers = require('ethers');
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+console.log('Olá, mundo!');
+console.log('Versão do Ethers:', ethers.version);
