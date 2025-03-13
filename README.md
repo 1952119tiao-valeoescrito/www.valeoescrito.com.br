@@ -1,9 +1,9 @@
-# Nome do Projeto
+# www.valeoescrito.com.br
 
-Este é um projeto incrível que faz coisas incríveis.
+Este é o repositório do site **Valeo Escrito**.
 
 ## Como Usar
 
-1. Clone o repositório.
-2. Execute `npm install`.
-3. Execute `npm start`.
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/1952119tiao-valeoescrito/www.valeoescrito.com.br.git
