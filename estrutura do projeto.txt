@@ -1,0 +1,28 @@
+loteria-web-app/
+├── backend/
+│   ├── package.json
+│   ├── server.js
+│   ├── routes/
+│   │   └── api.js
+│   ├── controllers/
+│   │   └── loteriaController.js
+│   ├── services/
+│   │   └── pixService.js
+│   └── config/
+│       └── web3Config.js
+├── frontend/
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── App.js
+│   │   ├── components/
+│   │   │   ├── MetamaskConnect.js
+│   │   │   ├── ApostaForm.js
+│   │   │   └── PixPayment.js
+│   │   ├── utils/
+│   │   │   └── web3Utils.js
+│   │   └── styles/
+│   │       └── App.css
+│   ├── package.json
+│   └── .env
+└── README.md
