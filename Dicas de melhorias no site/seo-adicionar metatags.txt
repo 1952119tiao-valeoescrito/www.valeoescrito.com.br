@@ -1,0 +1,3 @@
+<meta name="description" content="O Valeo Escrito é um projeto dedicado a...">
+<meta name="keywords" content="valeo, escrito, projeto, site">
+<meta name="author" content="Seu Nome">
