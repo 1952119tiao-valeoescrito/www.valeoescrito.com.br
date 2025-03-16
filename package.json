@@ -1,13 +1,19 @@
+"resolutions": {
+  "nth-check": "2.1.1"
+}
+
 {
   "name": "loteria-frontend",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@svgr/webpack": "^8.1.0",
+    "axios": "^1.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
-    "web3": "^4.0.3",
-    "axios": "^1.5.0"
+    "resolve-url-loader": "^5.0.0",
+    "web3": "^4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
