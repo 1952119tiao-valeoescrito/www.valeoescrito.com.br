@@ -120,7 +120,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Entrar">
             </div>
-            <p>NÃ£o tem uma conta? <a href="register.php">Inscreva-se agora</a>.</p>
+            <p>NÃ£o tem uma conta? <a href="https://1952119tiao-valeoescrito.github.io/blockchain-bet-brasil/register.php">Inscreva-se agora</a>.</p>
         </form>
     </div>
 </body>

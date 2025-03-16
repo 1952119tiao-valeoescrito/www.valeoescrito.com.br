@@ -126,7 +126,7 @@
     }
     ?>
 
-    <form action="cadastro_usuarios.php" method="post">
+    <form action="https://1952119tiao-valeoescrito.github.io/blockchain-bet-brasil/cadastro_usuarios.php" method="post">
         <div class="form-group">
             <label>Nome de usuário:</label>
             <input type="text" name="username" class="form-control">

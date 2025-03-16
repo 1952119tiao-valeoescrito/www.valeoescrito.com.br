@@ -149,7 +149,7 @@ $numero_aposta = $_SESSION['numero_aposta'];
 </head>
 <body>
 
-<form action="https://www.valeoescrito.com.br/apostar.php" class="formulario" method="post">
+<form action="https://1952119tiao-valeoescrito.github.io/blockchain-bet-brasil/apostar.php" class="formulario" method="post">
      <!-- Exibe o Número da Aposta -->
     <p class="numero-aposta">Número da Aposta: <?php echo htmlspecialchars($numero_aposta); ?></p>
 
