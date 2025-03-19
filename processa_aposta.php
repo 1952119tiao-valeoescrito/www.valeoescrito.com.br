@@ -204,7 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Executa a query
         if ($stmt->execute()) {
-            echo "<div class='success-message'>LOTTERY BETS IN BYTES - VALE O ESCRITO.<br>Seu registro foi realizado com sucesso.<br>Obrigado por confiar em nosso empreendimento!!!</div>";
+            echo "<div class='success-message'>BET BRASIL - VALE O ESCRITO.<br>Seu registro foi realizado com sucesso.<br>Obrigado por confiar em nosso empreendimento!!!</div>";
         } else {
             echo "<div class='error-message'>Erro ao inserir no banco de dados: " . $stmt->error . "</div>";
         }
@@ -250,7 +250,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <td><span style="color: #000080"><strong>' . htmlspecialchars($qui_premio) . '</strong></span></td>
                     </tr>
                     <tr>
-                        <td colspan="6"><span class="highlight"><strong>TOKENS REGISTRADOS EM BANCO DE DADOS.</strong></span></td>
+                        <td colspan="6"><span class="highlight"><strong>APOSTA REGISTRADA EM BANCO DE DADOS.</strong></span></td>
                     </tr>
                 </tbody>
             </table>

@@ -150,7 +150,7 @@ $database = "valeoescrito";
     $result = mysqli_query($conexao,$string_sql);
 
     if(mysqli_affected_rows($conexao) >0){ //verifica se foi afetada alguma linha, nesse caso inserida alguma linha
-      echo "LOTTERY BETS IN BYTES - VALE O ESCRITO.<br>Seu registro foi realizado com sucesso.<br>Obrigado por confiar em nosso empreendimento!!!"; 
+      echo "BET ANIMAL - VALE O ESCRITO.<br>Seu registro foi realizado com sucesso.<br>Obrigado por confiar em nosso empreendimento!!!"; 
       //Apenas um link para retornar para o formul&#65533;rio de cadastro
     } else {
       echo "Erro, n&#65533;o poss&#65533;vel inserir no banco de dados";
@@ -184,7 +184,7 @@ $database = "valeoescrito";
 			</td>
 		</tr>
 		<tr>
-			<td colspan="10" style="text-align: center"><span style="font-size: 22px"><strong><span style="color: #ff0000"><font face="Arial">SORTEIOS PELA LOTERIA FEDERAL</font></span></strong></span></td>
+			<td colspan="10" style="text-align: center"><span style="font-size: 22px"><strong><span style="color: #ff0000"><font face="Arial">SORTEIOS TODA QUARTA-FEIRA PELA LOTERIA FEDERAL</font></span></strong></span></td>
 		</tr>
 		<tr>
 			<td colspan="10" style="text-align: center">
@@ -231,7 +231,7 @@ $database = "valeoescrito";
 						<td><span style="color: #000080"><span style="font-size: 18px"><strong><span pbzloc="263" style="background-color: #ffffff">&nbsp;'.$qui_premio.'</span></strong></span></span></td>
 					</tr>
 					<tr>
-						<td colspan="6"><span style="font-size: 22px"><span style="color: #ff0000"><span><strong><span>TOKENS REGISTRADOS EM BANCO DE DADOS.</span><span></span></strong></span></span></span></td>
+						<td colspan="6"><span style="font-size: 22px"><span style="color: #ff0000"><span><strong><span>APOSTA REGISTRADA EM BANCO DE DADOS.</span><span></span></strong></span></span></span></td>
 					</tr>
 				</tbody>
 			</table>
@@ -252,7 +252,7 @@ $database = "valeoescrito";
 						<div>
 						<div style="font-size: medium; font-family: &quot;Times New Roman&quot;; white-space: normal; word-spacing: 0px; text-transform: none; font-weight: 400; color: rgb(0,0,0); font-style: normal; text-align: center; orphans: 2; widows: 2; letter-spacing: normal; text-indent: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-variant-ligatures: normal; font-variant-caps: normal"><span style="color: #808080"><span style="font-size: 14px"><span><strong>ACEITAMOS PAGAMENTO COM CRIPTOMOEDAS.&nbsp;</strong></span></span></span></div>
 
-						<div style="font-size: medium; font-family: &quot;Times New Roman&quot;; white-space: normal; word-spacing: 0px; text-transform: none; font-weight: 400; color: rgb(0,0,0); font-style: normal; text-align: center; orphans: 2; widows: 2; letter-spacing: normal; text-indent: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-variant-ligatures: normal; font-variant-caps: normal"><span style="color: #808080"><span style="font-size: 14px"><strong>PAGUE 0,00033 ETH.</strong></span></span></div>
+						<div style="font-size: medium; font-family: &quot;Times New Roman&quot;; white-space: normal; word-spacing: 0px; text-transform: none; font-weight: 400; color: rgb(0,0,0); font-style: normal; text-align: center; orphans: 2; widows: 2; letter-spacing: normal; text-indent: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-variant-ligatures: normal; font-variant-caps: normal"><span style="color: #808080"><span style="font-size: 14px"><strong>PAGUE 0,00046 ETH.</strong></span></span></div>
 						<div style="font-size: medium; font-family: &quot;Times New Roman&quot;; white-space: normal; word-spacing: 0px; text-transform: none; font-weight: 400; color: rgb(0,0,0); font-style: normal; text-align: center; orphans: 2; widows: 2; letter-spacing: normal; text-indent: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-variant-ligatures: normal; font-variant-caps: normal">&nbsp;</div>
 
 
