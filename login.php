@@ -1,91 +1,91 @@
-<center><br><br><br><br><br>
+<center><br><br><br><br><br><br><br>
 <?php
-// Inicialize a sessÃ£o
+// Inicialize a sessão
 session_start();
-
-// Verifique se o usuÃ¡rio jÃ¡ estÃ¡ logado, em caso afirmativo, redirecione-o para a pÃ¡gina de boas-vindas
+ 
+// Verifique se o usuário já está logado, em caso afirmativo, redirecione-o para a página de boas-vindas
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: welcome.php");
     exit;
 }
-
-// Incluir arquivo de configuraÃ§Ã£o
+ 
+// Incluir arquivo de configuração
 require_once "config.php";
-
-// Defina variÃ¡veis e inicialize com valores vazios
+ 
+// Defina variáveis e inicialize com valores vazios
 $username = $password = "";
 $username_err = $password_err = $login_err = "";
-
-// Processando dados do formulÃ¡rio quando o formulÃ¡rio Ã© enviado
+ 
+// Processando dados do formulário quando o formulário é enviado
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-    // Verifique se o nome de usuÃ¡rio estÃ¡ vazio
+ 
+    // Verifique se o nome de usuário está vazio
     if(empty(trim($_POST["username"]))){
-        $username_err = "Por favor, insira o nome de usuÃ¡rio.";
+        $username_err = "Por favor, insira o nome de usuário.";
     } else{
         $username = trim($_POST["username"]);
     }
-
-    // Verifique se a senha estÃ¡ vazia
+    
+    // Verifique se a senha está vazia
     if(empty(trim($_POST["password"]))){
         $password_err = "Por favor, insira sua senha.";
     } else{
         $password = trim($_POST["password"]);
     }
-
+    
     // Validar credenciais
     if(empty($username_err) && empty($password_err)){
-        // Prepare uma declaraÃ§Ã£o selecionada
+        // Prepare uma declaração selecionada
         $sql = "SELECT id, username, password FROM users WHERE username = :username";
-
+        
         if($stmt = $pdo->prepare($sql)){
-            // Vincule as variÃ¡veis Ã  instruÃ§Ã£o preparada como parÃ¢metros
+            // Vincule as variáveis à instrução preparada como parâmetros
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
-
-            // Definir parÃ¢metros
+            
+            // Definir parâmetros
             $param_username = trim($_POST["username"]);
-
-            // Tente executar a declaraÃ§Ã£o preparada
+            
+            // Tente executar a declaração preparada
             if($stmt->execute()){
-                // Verifique se o nome de usuÃ¡rio existe, se sim, verifique a senha
+                // Verifique se o nome de usuário existe, se sim, verifique a senha
                 if($stmt->rowCount() == 1){
                     if($row = $stmt->fetch()){
                         $id = $row["id"];
                         $username = $row["username"];
                         $hashed_password = $row["password"];
                         if(password_verify($password, $hashed_password)){
-                            // A senha estÃ¡ correta, entÃ£o inicie uma nova sessÃ£o
+                            // A senha está correta, então inicie uma nova sessão
                             session_start();
-
-                            // Armazene dados em variÃ¡veis de sessÃ£o
+                            
+                            // Armazene dados em variáveis de sessão
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;
-
-                            // Redirecionar o usuÃ¡rio para a pÃ¡gina de boas-vindas
+                            $_SESSION["username"] = $username;                            
+                            
+                            // Redirecionar o usuário para a página de boas-vindas
                             header("location: welcome.php");
                         } else{
-                            // A senha nÃ£o Ã© vÃ¡lida, exibe uma mensagem de erro genÃ©rica
-                            $login_err = "Nome de usuÃ¡rio ou senha invÃ¡lidos.";
+                            // A senha não é válida, exibe uma mensagem de erro genérica
+                            $login_err = "Nome de usuário ou senha inválidos.";
                         }
                     }
                 } else{
-                    // O nome de usuÃ¡rio nÃ£o existe, exibe uma mensagem de erro genÃ©rica
-                    $login_err = "Nome de usuÃ¡rio ou senha invÃ¡lidos.";
+                    // O nome de usuário não existe, exibe uma mensagem de erro genérica
+                    $login_err = "Nome de usuário ou senha inválidos.";
                 }
             } else{
                 echo "Ops! Algo deu errado. Por favor, tente novamente mais tarde.";
             }
-            // Fechar declaraÃ§Ã£o
+            // Fechar declaração
             unset($stmt);
         }
     }
-
-    // Fechar conexÃ£o
+    
+    // Fechar conexão
     unset($pdo);
 }
 ?>
-
+ 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -98,20 +98,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </style>
 </head>
 <body>
-    <div class="wrapper"><p align="center">
+    <div class="wrapper">
         <h2>Login</h2>
         <p>Por favor, preencha os campos para fazer o login.</p>
-        <?php
+        <?php 
         if(!empty($login_err)){
             echo '<div class="alert alert-danger">' . $login_err . '</div>';
-        }
+        }        
         ?>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
-                <label>Nome do usuÃ¡rio</label>
+                <label>Nome do usuário</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>
+            </div>    
             <div class="form-group">
                 <label>Senha</label>
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
@@ -120,7 +120,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Entrar">
             </div>
-            <p>NÃ£o tem uma conta? <a href="https://1952119tiao-valeoescrito.github.io/blockchain-bet-brasil/register.php">Inscreva-se agora</a>.</p>
+            <p>Não tem uma conta? <a href="register.php">Inscreva-se agora</a>.</p>
         </form>
     </div>
 </body>
